@@ -17,13 +17,13 @@ bun add rehype-budoux
 
 ```ts
 import { rehype } from "rehype";
-import rehypeBudouX from "rehype-budoux";
+import rehypeBudoux from "rehype-budoux";
 
 const result = await rehype()
   .data("settings", {
     fragment: true
   })
-  .use(rehypeBudouX, {
+  .use(rehypeBudoux, {
     className: "budoux-breaked"
   })
   .process("<p>こんにちは、世界！</p>");
