@@ -1,0 +1,27 @@
+{
+  "collectCoverage": true,
+  "transform": {
+    "^.+\\.[tj]s$": [
+      "@swc/jest",
+      {
+        "jsc": {
+          "parser": {
+            "syntax": "typescript"
+          },
+          "target": "esnext",
+          "baseUrl": "./",
+          "paths": {
+            "@/*": [
+              "src/*"
+            ]
+          }
+        },
+        "module": {
+          "type": "es6"
+        }
+      }
+    ]
+  },
+  "transformIgnorePatterns": [],
+  "testEnvironment": "node"
+}
