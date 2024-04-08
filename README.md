@@ -34,6 +34,8 @@ console.log(result.toString());
 
 ## API
 
+[Document](https://sqrtox.github.io/rehype-budoux)
+
 ### `Options`
 
 Configuration (TypeScript type).
