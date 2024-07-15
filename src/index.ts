@@ -9,6 +9,9 @@ export type Options = {
   className?: string[] | string;
 };
 
+const isMeaningfulText = (child: RootContent): boolean =>
+  child.type === "text" && child.value.trim().length > 0;
+
 let parser: HTMLProcessingParser;
 
 const processChildren = (parent: Parent, options: Options = {}): void => {
@@ -30,7 +33,7 @@ const processChildren = (parent: Parent, options: Options = {}): void => {
         parser = loadDefaultJapaneseParser();
       }
 
-      if (children.length > 0) {
+      if (children.length > 0 && isMeaningfulText(child)) {
         pushWbr();
       }
 
@@ -49,7 +52,9 @@ const processChildren = (parent: Parent, options: Options = {}): void => {
         processChildren(child, options);
       }
 
-      if (children.at(-1)?.type === "text") {
+      const prev = children.at(-1);
+
+      if (prev && isMeaningfulText(prev)) {
         pushWbr();
       }
 
