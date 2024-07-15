@@ -28,9 +28,14 @@
       "types": "./dist/index.d.ts"
     }
   },
-  "files": ["dist", "package.json"],
+  "files": [
+    "dist",
+    "package.json"
+  ],
   "homepage": "https://github.com/sqrtox/rehype-budoux#readme",
-  "keywords": ["rehype"],
+  "keywords": [
+    "rehype"
+  ],
   "license": "MIT",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -45,8 +50,10 @@
     "prepare": "bun run build",
     "test": "jest"
   },
-  "trustedDependencies": ["@biomejs/biome"],
+  "trustedDependencies": [
+    "@biomejs/biome"
+  ],
   "type": "module",
   "types": "./dist/index.d.ts",
-  "version": "1.0.0"
+  "version": "1.1.0"
 }
