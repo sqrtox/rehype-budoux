@@ -1,4 +1,4 @@
-import { loadDefaultJapaneseParser } from "budoux";
+import { loadDefaultJapaneseParser } from "budoux/dist/index.js";
 import { isElement } from "hast-util-is-element";
 
 import type { HTMLProcessingParser } from "budoux";
@@ -6,7 +6,7 @@ import type { Parent, RootContent } from "hast";
 import type { Plugin } from "unified";
 
 export type Options = {
-  className?: string[] | string
+  className?: string[] | string;
 };
 
 let parser: HTMLProcessingParser;
@@ -16,6 +16,15 @@ const processChildren = (parent: Parent, options: Options = {}): void => {
   let wbrInserted = false;
 
   for (const child of parent.children) {
+    if (children.length > 0) {
+      children.push({
+        type: "element",
+        tagName: "wbr",
+        properties: {},
+        children: [],
+      });
+    }
+
     if (child.type === "text") {
       if (!parser) {
         parser = loadDefaultJapaneseParser();
@@ -28,13 +37,13 @@ const processChildren = (parent: Parent, options: Options = {}): void => {
             type: "element",
             tagName: "wbr",
             properties: {},
-            children: []
+            children: [],
           });
         }
 
         children.push({
           type: "text",
-          value
+          value,
         });
       }
     } else {
@@ -61,8 +70,8 @@ const processChildren = (parent: Parent, options: Options = {}): void => {
   parent.children = children;
 };
 
-const rehypeBudouX: Plugin<[Options?], Parent> = options => node => {
+const rehypeBudoux: Plugin<[Options?], Parent> = (options) => (node) => {
   processChildren(node, options);
 };
 
-export default rehypeBudouX;
+export default rehypeBudoux;
