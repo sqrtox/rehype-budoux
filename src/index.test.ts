@@ -59,6 +59,34 @@ describe("Basic Processing", () => {
     );
   });
 
+  it("No wbr element is added to the end", async () => {
+    const result = await rehype()
+      .use(rehypeBudoux)
+      .run(
+        h(
+          "p",
+          "こんにちは、",
+          h("a", { href: "/" }, "世"),
+          h("a", { href: "/" }, "界"),
+          "！",
+        ),
+      );
+
+    expect(result).toEqual(
+      h(
+        "p",
+        "こんに",
+        h("wbr"),
+        "ちは、",
+        h("wbr"),
+        h("a", { href: "/" }, "世"),
+        h("a", { href: "/" }, "界"),
+        h("wbr"),
+        "！",
+      ),
+    );
+  });
+
   it("The wbr element is properly inserted", async () => {
     const result = await rehype()
       .use(rehypeBudoux)

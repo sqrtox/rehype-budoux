@@ -14,31 +14,29 @@ let parser: HTMLProcessingParser;
 const processChildren = (parent: Parent, options: Options = {}): void => {
   const children: RootContent[] = [];
   let wbrInserted = false;
+  const pushWbr = (): void => {
+    wbrInserted = true;
+    children.push({
+      type: "element",
+      tagName: "wbr",
+      properties: {},
+      children: [],
+    });
+  };
 
   for (const child of parent.children) {
-    if (children.length > 0) {
-      children.push({
-        type: "element",
-        tagName: "wbr",
-        properties: {},
-        children: [],
-      });
-    }
-
     if (child.type === "text") {
       if (!parser) {
         parser = loadDefaultJapaneseParser();
       }
 
+      if (children.length > 0) {
+        pushWbr();
+      }
+
       for (const [index, value] of parser.parse(child.value).entries()) {
         if (index > 0) {
-          wbrInserted = true;
-          children.push({
-            type: "element",
-            tagName: "wbr",
-            properties: {},
-            children: [],
-          });
+          pushWbr();
         }
 
         children.push({
@@ -49,6 +47,10 @@ const processChildren = (parent: Parent, options: Options = {}): void => {
     } else {
       if ("children" in child) {
         processChildren(child, options);
+      }
+
+      if (children.at(-1)?.type === "text") {
+        pushWbr();
       }
 
       children.push(child);
