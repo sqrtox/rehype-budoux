@@ -1,4 +1,4 @@
-import { loadDefaultJapaneseParser } from "budoux/dist/index.js";
+import { loadDefaultJapaneseParser } from "budoux";
 import { isElement } from "hast-util-is-element";
 
 import type { HTMLProcessingParser } from "budoux";
